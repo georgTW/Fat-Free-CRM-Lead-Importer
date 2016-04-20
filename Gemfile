@@ -14,5 +14,7 @@ gem "jquery-rails"
 # your gem to rubygems.org.
 
 # To use debugger
-# gem 'debugger'
-gem 'fat_free_crm', git: 'https://github.com/fatfreecrm/fat_free_crm.git', branch: 'master'
+#gem 'debugger'
+#gem 'fat_free_crm'
+#gem 'fat_free_crm', :git => 'https://github.com/fatfreecrm/fat_free_crm.git', :branch => 'master'
+
