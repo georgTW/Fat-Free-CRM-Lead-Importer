@@ -22,12 +22,14 @@ def import
       
       # leftover array contains all remaining columns of the document, if you need additional values inserted, just address them like shown below 
       value1, value2, _ = *leftover
+
+      # Check for duplicates based on first_name, last_name and email
       total += 1
       if Lead.where(first_name: first_name, last_name: last_name, email: email).present?
-        p '============= skipping value first_name last_name'
         c += 1
-	next
+	next # Skip item if duplicate
       end
+
       lead = Lead.new(:source => source, :title => title, :first_name => first_name, :last_name => last_name,
                       :email => email, :blog => blog, :linkedin => linkedin, :rating => rating, :company => company, :referred_by => referred_by, :phone => phone, :mobile => mobile_phone)
 

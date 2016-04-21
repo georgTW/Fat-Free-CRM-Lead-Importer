@@ -16,7 +16,7 @@ class Admin::ImportLeadsController < Admin::ApplicationController
     return_value = ImportLead.new(file).import_assigned_to(assigned)
     total = return_value[0]
     c = return_value[1]
-    redirect_to new_admin_import_lead_path, :notice => "Total Lead for import  #{total}, #{c} duplicates skipped"
+    redirect_to new_admin_import_lead_path, :notice => "Total Leads for import  #{total}, #{c} duplicates skipped"
   end
 
 end
