@@ -18,7 +18,9 @@ This plugin has some hard coded values:
 - lead.status = "new" // Status will be set to 'New'
 
 To import you should use the following structure for your .csv file:
+````
 "Source", "Title, "First Name", "Last Name", "Email", "Website", "LinkedIn", "Rating", "Company Name", "Phone Number", "Mobile Number", "Address", "City", "ZIP code", "Country", "Referred by"
+````
 
 For mapping the country the official ISO alpha-2 code is used: https://www.iso.org/obp/ui/#search
 
