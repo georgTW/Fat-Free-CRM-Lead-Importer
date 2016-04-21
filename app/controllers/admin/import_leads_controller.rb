@@ -13,9 +13,10 @@ class Admin::ImportLeadsController < Admin::ApplicationController
     assigned = User.find(params[:import][:assigned_to])
     file = params[:import][:csv_file]
 
-    ImportLead.new(file).import_assigned_to(assigned)
-
-    redirect_to new_admin_import_lead_path, :notice => "Leads successfully imported"
+    return_value = ImportLead.new(file).import_assigned_to(assigned)
+    total = return_value[0]
+    c = return_value[1]
+    redirect_to new_admin_import_lead_path, :notice => "Total Lead for import  #{total}, #{c} duplicates skipped"
   end
 
 end
