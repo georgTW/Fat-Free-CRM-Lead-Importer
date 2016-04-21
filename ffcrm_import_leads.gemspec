@@ -12,13 +12,12 @@ Gem::Specification.new do |s|
   s.licenses    = ["MIT"]
   s.homepage    = "http://github.com/orbitalimpact/Fat-Free-CRM-Lead-Importer"
   s.summary     = "A simple plugin to import leads into Fat Free CRM"
-  s.description = "A simple plugin to import leads into Fat Free CRM"
+  s.description = "A simple plugin to import leads into Fat Free CRM Edited by georgTW@github to work with the latest FFCRM version (0.14.0)"
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["spec/**/*"]
 
   s.add_dependency "rails", "~> 4.2.6"
-#  s.add_dependency "fat_free_crm", "= 0.14.0"
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'capybara'
   s.add_development_dependency 'factory_girl_rails'
