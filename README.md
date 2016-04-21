@@ -20,5 +20,7 @@ This plugin has some hard coded values:
 To import you should use the following structure for your .csv file:
 "Source", "Title, "First Name", "Last Name", "Email", "Website", "LinkedIn", "Rating", "Company Name", "Phone Number", "Mobile Number", "Address", "City", "ZIP code", "Country", "Referred by"
 
+For mapping the country the official ISO alpha-2 code is used: https://www.iso.org/obp/ui/#search
+
 All these values or the order of the import document can be edited in this file: https://github.com/georgTW/Fat-Free-CRM-Lead-Importer/blob/master/app/models/import_lead.rb
 
