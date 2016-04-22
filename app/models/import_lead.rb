@@ -41,7 +41,7 @@ def import
       total += 1
       if Lead.where(first_name: first_name, last_name: last_name, email: email).present?
         c += 1
-	next # Skip item if duplicate
+	      next # Skip item if duplicate
       end
 
       lead = Lead.new(:title => title, :first_name => first_name, :last_name => last_name,
@@ -62,9 +62,11 @@ def import
       address.save!
 
       # Add Comments to Lead
-      notes = Comment.new(:comment => notes, :user_id => lead.assigned_to, :commentable_id => lead.id)
-      notes.commentable_type = 'Lead'
-      notes.save!
+      if notes
+        notes = Comment.new(:comment => notes, :user_id => lead.assigned_to, :commentable_id => lead.id)
+        notes.commentable_type = 'Lead'
+        notes.save!
+      end
       
     end
     [total,c]
