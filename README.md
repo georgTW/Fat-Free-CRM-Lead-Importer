@@ -16,6 +16,7 @@ Run the ````bundle install```` command to install it.
 This plugin has some hard coded values:
 - lead.access = "Public" // Access for all imported leads will be public
 - lead.status = "new" // Status will be set to 'New'
+- Check for duplicates based on first name, last name and email
 
 To import you should use the following structure for your .csv file:
 ````
