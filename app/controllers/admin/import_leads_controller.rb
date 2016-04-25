@@ -16,14 +16,17 @@ class Admin::ImportLeadsController < Admin::ApplicationController
 
     if gdrive == '0'
       return_value = ImportLead.new(file).import_file(assigned)
-      total = return_value[0]
-      c = return_value[1]
-      redirect_to new_admin_import_lead_path, :notice => "Total Leads for import  #{total}, #{c} duplicates skipped"
     else
       return_value = ImportLead.new(file).import_gdrive(assigned)
-      total = return_value[0]
-      c = return_value[1]
-      redirect_to new_admin_import_lead_path, :notice => "Total Leads for import  #{total}, #{c} duplicates skipped"
+    end
+    error = return_value[0]
+      if error == ''
+        total = return_value[1]
+        c = return_value[2]
+        redirect_to new_admin_import_lead_path, :notice => "Total Leads for import  #{total}, #{c} duplicates skipped"
+      else
+        flash[:error] = t(:msg_gdrive_error, error)
+        redirect_to new_admin_import_lead_path
     end
   end
 

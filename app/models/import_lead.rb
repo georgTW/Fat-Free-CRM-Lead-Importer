@@ -22,9 +22,9 @@ class ImportLead
       @file = File.new(gdrive_path, "r")
     else
       # TODO: Add error handling for no file on gdrive etc.
-      abort
+      error = 'No file found on GDrive'
+      return [error]
     end
-
     import
   end
 
@@ -38,6 +38,11 @@ class ImportLead
 def import
     total = 0
     c = 0
+    error = ''
+    if File.extname(@file.path) != '.csv' 
+      error = 'Wrong filetype'
+      return [error]
+    end
     CSV.foreach(@file.path, :converters => :all, :return_headers => false, :headers => :first_row) do |row|
       first_name = row['First Name']
       last_name = row['Last Name']
@@ -99,6 +104,6 @@ def import
       
     end
     FileUtils.rm(@file.path)
-    [total,c]
+    [error, total, c]
   end
 end
