@@ -11,6 +11,10 @@
         %td
           .label.top #{t :csv_file}:
           = f.file_field :csv_file
+        %td
+          .label.top #{t :gdrive}:
+          = f.check_box :gdrive
+
 
     .buttonbar
       = f.submit t(:import_leads)

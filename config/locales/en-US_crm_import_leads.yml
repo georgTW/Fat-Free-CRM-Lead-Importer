@@ -1,3 +1,4 @@
 en-US:
   import_leads: Import Leads
   csv_file: CSV File
+  gdrive: Auto import from GDrive

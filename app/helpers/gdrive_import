@@ -1,0 +1,7 @@
+#!/bin/bash
+# This import works for the default WorldCard mobile app format
+# Setup gdrive before running this command
+# See https://github.com/prasmussen/gdrive
+
+fileid=$(gdrive list --query "name contains 'android' and trashed = false and fileExtension='csv'" --order 'createdTime' --no-header | awk '{print $1}' | head -n 1)
+gdrive download -f --stdout "${fileid}" > $1

@@ -1,13 +1,31 @@
 require 'csv'
 
+
 class ImportLead
   def initialize(file)
-    @file = file
+    if file
+       @file = file
+    end
   end
 
-  def import_assigned_to(assigned)
+  def import_gdrive(assigned)
     @assigned = assigned
 
+    # Get the latest csv from gdrive_import helper script
+    # We're using the gdrive command line utility from https://github.com/prasmussen/gdrive
+    gdrive = File.expand_path("../../helpers/gdrive_import", __FILE__)
+    gdrive_path = File.expand_path("../../helpers/latest.csv", __FILE__)
+    result = system(gdrive, gdrive_path)
+
+    # If gdrive exit was 0, continue to load the file
+    if result
+      @file = File.new(gdrive_path, "r")
+    end
+    import
+  end
+
+  def import_file(assigned)
+    @assigned = assigned
     import
   end
 
@@ -69,6 +87,7 @@ def import
       end
       
     end
+    FileUtils.rm(@file.path)
     [total,c]
   end
 end
