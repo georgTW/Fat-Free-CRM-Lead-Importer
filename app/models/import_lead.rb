@@ -21,7 +21,7 @@ class ImportLead
     if result
       @file = File.new(gdrive_path, "r")
     else
-      # TODO: Add error handling for no file on gdrive etc.
+      # Error handling for no file on gdrive etc.
       error = 'No file found on GDrive'
       return [error]
     end
@@ -39,6 +39,8 @@ def import
     total = 0
     c = 0
     error = ''
+    
+    # Error handling for wrong filetype
     if File.extname(@file.path) != '.csv' 
       error = 'Wrong filetype'
       return [error]
