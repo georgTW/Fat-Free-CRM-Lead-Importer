@@ -23,7 +23,6 @@ This plugin has some hard coded values:
 
 ## TODO
 
-- For mapping the country the official ISO alpha-2 code is used: https://www.iso.org/obp/ui/#search - WorldCard Mobile uses full name, needs to be fixed!
 - Remove hardcoded values
 - Error handling
 

@@ -20,7 +20,11 @@ class ImportLead
     # If gdrive exit was 0, continue to load the file
     if result
       @file = File.new(gdrive_path, "r")
+    else
+      # TODO: Add error handling for no file on gdrive etc.
+      abort
     end
+
     import
   end
 
@@ -55,6 +59,13 @@ def import
       # leftover array contains all remaining columns of the document, if you need additional values inserted, just address them like shown below 
       value1, value2, _ = *leftover
 
+      # FFCRM uses Alpha2 codes for countries, try to match here:
+      # Using https://github.com/hexorx/countries
+      countryCode = ISO3166::Country.find_country_by_name(country).alpha2
+      if countryCode.to_s == ''
+        countryCode = country
+      end
+
       # Check for duplicates based on first_name, last_name and email
       total += 1
       if Lead.where(first_name: first_name, last_name: last_name, email: email).present?
@@ -74,7 +85,7 @@ def import
       lead.save!
 
       # Add Business address to Lead
-      address = Address.new(:street1 => street, :city => city, :zipcode => zipcode, :country => country, :addressable_id => lead.id)
+      address = Address.new(:street1 => street, :city => city, :zipcode => zipcode, :country => countryCode, :addressable_id => lead.id)
       address.addressable_type = 'Lead'
       address.address_type = 'Business'
       address.save!

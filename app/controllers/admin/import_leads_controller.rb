@@ -13,7 +13,6 @@ class Admin::ImportLeadsController < Admin::ApplicationController
     assigned = User.find(params[:import][:assigned_to])
     file = params[:import][:csv_file]
     gdrive = params[:import][:gdrive]
-    p gdrive
 
     if gdrive == '0'
       return_value = ImportLead.new(file).import_file(assigned)
