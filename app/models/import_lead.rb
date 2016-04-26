@@ -68,10 +68,9 @@ def import
 
       # FFCRM uses Alpha2 codes for countries, try to match here:
       # Using https://github.com/hexorx/countries
-      countryCode = ISO3166::Country.find_country_by_name(country).alpha2
-      if countryCode.to_s == ''
-        countryCode = country
-      end
+      countryCode = ISO3166::Country.find_country_by_name(country)
+      countryCode = countryCode.alpha2 if countryCode.present?
+      countryCode = country if countryCode.blank?
 
       # Check for duplicates based on first_name, last_name and email
       total += 1
