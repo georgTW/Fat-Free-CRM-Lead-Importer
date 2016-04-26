@@ -5,7 +5,7 @@
       %tr
         %td
           .label.top #{t :assigned_to}:
-          = f.select :assigned_to, User.all.map { |u| [ u.name, u.id ] }
+          = f.select :assigned_to, User.all.map { |u| [ u.name, u.id ] }.sort
         %td= spacer
       %tr
         %td
