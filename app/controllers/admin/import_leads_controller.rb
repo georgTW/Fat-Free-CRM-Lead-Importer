@@ -1,3 +1,4 @@
+require 'open3'
 class Admin::ImportLeadsController < Admin::ApplicationController
   before_filter :require_user
   before_filter "set_current_tab('admin/import')"
