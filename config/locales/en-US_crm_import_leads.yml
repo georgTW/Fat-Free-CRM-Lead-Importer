@@ -1,5 +1,5 @@
 en-US: 
   csv_file: "CSV File"
-  gdrive: "Auto import from GDrive"
+  gdrive_file: "Import from GDrive"
   import_leads: "Import Leads"
   msg_gdrive_error: "Error while importing: %{value}"

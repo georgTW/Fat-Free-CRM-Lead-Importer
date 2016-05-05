@@ -3,19 +3,22 @@ require 'csv'
 
 class ImportLead
   def initialize(file)
-    if file
-       @file = file
-    end
+    @file = file if file.present?
   end
 
-  def import_gdrive(assigned, campaign)
+  def import_gdrive(gdrive_file, assigned, campaign)
+    if gdrive_file.blank?
+      error = 'Select a .csv file or GDrive import' 
+      return [error]
+    end
     @assigned = assigned
     @campaign = campaign.id if campaign.present?
-    # Get the latest csv from gdrive_import helper script
+
+    # Get the file from gdrive_import helper script
     # We're using the gdrive command line utility from https://github.com/prasmussen/gdrive
     gdrive = File.expand_path("../../helpers/gdrive_import", __FILE__)
     gdrive_path = File.expand_path("../../helpers/latest.csv", __FILE__)
-    result = system(gdrive, gdrive_path)
+    result = system(gdrive, 'dl', gdrive_file, gdrive_path)
 
     # If gdrive exit was 0, continue to load the file
     if result
@@ -29,6 +32,10 @@ class ImportLead
   end
 
   def import_file(assigned, campaign)
+    if @file.blank?
+      error = 'Select a .csv file or GDrive import' 
+      return [error]
+    end
     @assigned = assigned
     @campaign = campaign.id if campaign.present?
     import

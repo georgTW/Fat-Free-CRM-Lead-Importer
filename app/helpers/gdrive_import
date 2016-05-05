@@ -2,6 +2,37 @@
 # This import works for the default WorldCard mobile app format
 # Setup gdrive before running this command
 # See https://github.com/prasmussen/gdrive
+case $1 in
 
-fileid=$(gdrive list --query "name contains 'android' and trashed = false and fileExtension='csv'" --order 'createdTime desc' --no-header | awk '{print $1}' | head -n 1)
-gdrive download -f --stdout "${fileid}" > $1
+'list')
+
+IFS=$'\n'
+
+files=()
+output=()
+recurse() {
+  files=$(gdrive list --query "trashed = false and fileExtension='csv'" --order 'createdTime desc' --no-header)
+  for file in $files
+  do
+    # id<whitespace>name<whitespace>size
+    # splitting things
+    id=$(awk '{print $1}' <<< $file | sed -e 's/ //g')
+    #id=${id:0,1} #substring
+
+    name=$(awk '{print $2}' <<< $file)
+    #types=$(awk '{print $3}' <<< $file)
+    size=$(awk '{print $4}' <<< $file)
+    created=$(awk '{print $6,$7}' <<< $file)
+
+    output+=("$id;$name;$created")
+  done
+}
+recurse
+
+printf -- '%s\n' "${output[@]}"
+
+;;
+'dl')
+gdrive download -f --stdout $2 > $3
+;;
+esac
