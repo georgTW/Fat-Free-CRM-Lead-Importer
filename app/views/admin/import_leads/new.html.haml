@@ -15,8 +15,8 @@
           .label.top #{t :csv_file}:
           = f.file_field :csv_file
         %td
-          .label.top #{t :gdrive}:
-          = f.check_box :gdrive
+          .label.top #{t :gdrive_file}:
+          = f.select :gdrive_file_id, @gdrive_files.collect{|x| [x[1], x[0]]}, :include_blank => t(:select_none)
 
 
     .buttonbar
