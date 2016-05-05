@@ -21,6 +21,9 @@ This plugin has some hard coded values:
 - lead.status = "new" // Status will be set to 'New'
 - Check for duplicates based on first name, last name and email
 
+## Screenshot
+![image](https://cloud.githubusercontent.com/assets/18528524/15040285/19af8daa-12e6-11e6-9bec-d09eb858ef8e.png)
+
 ## TODO
 
 - Remove hardcoded values
