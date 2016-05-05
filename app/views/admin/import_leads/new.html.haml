@@ -6,6 +6,9 @@
         %td
           .label.top #{t :assigned_to}:
           = f.select :assigned_to, User.all.map { |u| [ u.name, u.id ] }.sort
+        %td
+          .label.top #{t :campaign}:
+          = f.select :campaign_id, Campaign.all.map { |c| [ c.name, c.id ] }, :include_blank => t(:select_none)
         %td= spacer
       %tr
         %td

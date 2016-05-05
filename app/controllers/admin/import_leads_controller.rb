@@ -11,13 +11,14 @@ class Admin::ImportLeadsController < Admin::ApplicationController
 
   def create
     assigned = User.find(params[:import][:assigned_to])
+    campaign = Campaign.find(params[:import][:campaign_id]) if params[:import][:campaign_id].present?
     file = params[:import][:csv_file]
     gdrive = params[:import][:gdrive]
 
     if gdrive == '0'
-      return_value = ImportLead.new(file).import_file(assigned)
+      return_value = ImportLead.new(file).import_file(assigned, campaign)
     else
-      return_value = ImportLead.new(file).import_gdrive(assigned)
+      return_value = ImportLead.new(file).import_gdrive(assigned, campaign)
     end
     error = return_value[0]
       if error == ''

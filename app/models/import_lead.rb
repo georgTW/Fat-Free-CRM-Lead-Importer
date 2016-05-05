@@ -8,9 +8,9 @@ class ImportLead
     end
   end
 
-  def import_gdrive(assigned)
+  def import_gdrive(assigned, campaign)
     @assigned = assigned
-
+    @campaign = campaign.id if campaign.present?
     # Get the latest csv from gdrive_import helper script
     # We're using the gdrive command line utility from https://github.com/prasmussen/gdrive
     gdrive = File.expand_path("../../helpers/gdrive_import", __FILE__)
@@ -28,8 +28,9 @@ class ImportLead
     import
   end
 
-  def import_file(assigned)
+  def import_file(assigned, campaign)
     @assigned = assigned
+    @campaign = campaign.id if campaign.present?
     import
   end
 
@@ -88,6 +89,7 @@ def import
       lead.access = "Public"
       lead.status = "new"
       lead.assignee = @assigned if @assigned.present?
+      lead.campaign_id = @campaign if @campaign.present?
       lead.save!
 
       # Add Business address to Lead
