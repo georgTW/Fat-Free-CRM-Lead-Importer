@@ -1,7 +1,7 @@
 require 'open3'
 class Admin::ImportLeadsController < Admin::ApplicationController
-  before_filter :require_user
-  before_filter "set_current_tab('admin/import')"
+  before_action :require_admin_user
+  before_action "set_current_tab('admin/import_leads')"
 
   def index
     redirect_to :action => :new
