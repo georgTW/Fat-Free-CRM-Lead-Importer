@@ -33,6 +33,17 @@ printf -- '%s\n' "${output[@]}"
 
 ;;
 'dl')
-gdrive download -f --stdout $2 > $3
+try=$( gdrive download -f --stdout $2 )
+echo $try
+if [[ $try == *"is a google document and must be exported"* ]]; then
+  echo "Google document!"
+  cd $3
+  echo $3
+  gdrive export -f $2
+  ls -al
+else
+  gdrive download -f --stdout $2 > $3/latest.csv
+fi
+
 ;;
 esac

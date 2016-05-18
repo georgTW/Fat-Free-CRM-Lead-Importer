@@ -16,13 +16,14 @@ class ImportLead
 
     # Get the file from gdrive_import helper script
     # We're using the gdrive command line utility from https://github.com/prasmussen/gdrive
-    gdrive = File.expand_path("../../helpers/gdrive_import", __FILE__)
-    gdrive_path = File.expand_path("../../helpers/latest.csv", __FILE__)
-    result = system(gdrive, 'dl', gdrive_file, gdrive_path)
+    gdrive = File.expand_path("../../helpers/gdrive_import", __FILE__) # This is the path to the helper bash script
+    gdrive_path = File.expand_path("../../helpers/dl", __FILE__) # This is the path where .csv files are downloaded
+    gdrive_file_export = gdrive_path + "/*.csv" # This is the search path for the .csv files
+    result = system(gdrive, 'dl', gdrive_file, gdrive_path) # This is the command to download the gdrive file
 
     # If gdrive exit was 0, continue to load the file
     if result
-      @file = File.new(gdrive_path, "r")
+      @file = File.new(Dir[gdrive_file_export][0], "r") # Get only one file from gdrive_file_export folder (there should be only one! Fails if there are two or more..) TODO: Fail safe solution!
     else
       # Error handling for no file on gdrive etc.
       error = 'No file found on GDrive'
